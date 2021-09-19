@@ -3,6 +3,8 @@ import os
 import sys
 import shutil
 import SimpleITK as sitk
+import nibabel as nib
+from pyrobex.robex import robex
 from shutil import move
 from registration.registration import Registration
 import dicom2nifti
@@ -77,6 +79,9 @@ if __name__ == '__main__':
         reg.set_images(fixed=sri24, moving=t1ce)
         save_path = os.path.join(save_dir, "t1ce_to_sri24.nii.gz")
         reg.execute(save_path)
+        # image = nib.load('../output/t1ce_to_sri24.nii.gz')
+        # stripped, mask = robex(image)
+        # nib.save(stripped, '../output/t1ce_to_sri24_stripped.nii.gz')
 
     # t1 to t1ce
     if t1 and os.path.isfile(t1):
@@ -85,6 +90,9 @@ if __name__ == '__main__':
         reg.set_images(fixed=t1ce_reg, moving=t1)
         save_path = os.path.join(save_dir, "t1_to_t1ce.nii.gz")
         reg.execute(save_path)
+        # image = nib.load('../output/t1_to_t1ce.nii.gz')
+        # stripped, mask = robex(image)
+        # nib.save(stripped, '../output/t1_to_t1ce.nii_stripped.nii.gz')
 
     # t2 to t1ce
     if t2 and os.path.isfile(t2):
@@ -93,6 +101,9 @@ if __name__ == '__main__':
         reg.set_images(fixed=t1ce_reg, moving=t2)
         save_path = os.path.join(save_dir, "t2_to_t1ce.nii.gz")
         reg.execute(save_path)
+        # image = nib.load('../output/t2_to_t1ce.nii.gz')
+        # stripped, mask = robex(image)
+        # nib.save(stripped, '../output/t2_to_t1ce_stripped.nii.gz')
 
     # flair to t1ce
     if flair and os.path.isfile(flair):
@@ -101,4 +112,7 @@ if __name__ == '__main__':
         reg.set_images(fixed=t1ce_reg, moving=flair)
         save_path = os.path.join(save_dir, "flair_to_t1ce.nii.gz")
         reg.execute(save_path)
-
+        # image = nib.load('../output/flair_to_t1ce.nii.gz')
+        # stripped, mask = robex(image)
+        # nib.save(stripped, '../output/flair_to_t1ce_stripped.nii.gz')
+        # nib.save(mask, '../output/flair_to_t1ce_stripped.nii.gz')
